@@ -13,9 +13,18 @@ import AppPage from './pages/AppPage';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 function App() {
-  // Use faster RPC endpoint - Helius free tier or custom RPC
+  // Use faster RPC endpoint - QuickNode or custom RPC
   const endpoint = useMemo(() => 
     import.meta.env.VITE_SOLANA_RPC || 'https://api.mainnet-beta.solana.com',
+    []
+  );
+  
+  // Connection config for faster initialization
+  const config = useMemo(
+    () => ({
+      commitment: 'confirmed',
+      wsEndpoint: undefined, // Disable WebSocket for faster init
+    }),
     []
   );
   
@@ -28,8 +37,8 @@ function App() {
   );
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+    <ConnectionProvider endpoint={endpoint} config={config}>
+      <WalletProvider wallets={wallets} autoConnect={false}>
         <WalletModalProvider>
           <AuthProvider>
             <TaskProvider>
