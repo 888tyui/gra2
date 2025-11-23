@@ -1,0 +1,334 @@
+.profile-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 1.5rem;
+}
+
+.profile-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+
+.profile-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
+  color: white;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: 700;
+  border: 4px solid var(--grass-100);
+}
+
+.profile-view {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-info h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--grass-50);
+  color: var(--grass-700);
+  font-weight: 600;
+  border: 1px solid var(--grass-300);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+  background: var(--grass-100);
+  border-color: var(--grass-500);
+}
+
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.edit-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.profile-input,
+.profile-textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.profile-input:focus,
+.profile-textarea:focus {
+  background: var(--bg-card);
+  border-color: var(--grass-500);
+  outline: none;
+}
+
+.profile-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn-secondary,
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card);
+  border-color: var(--text-secondary);
+}
+
+.btn-primary {
+  background: var(--grass-600);
+  color: white;
+  border: 1px solid var(--grass-600);
+}
+
+.btn-primary:hover {
+  background: var(--grass-700);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.profile-wallet {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.wallet-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.wallet-address {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--grass-700);
+  background: var(--grass-50);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--grass-200);
+}
+
+.stats-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.stats-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.level-display {
+  margin-bottom: 2rem;
+}
+
+.level-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--grass-50), var(--grass-100));
+  border: 1px solid var(--grass-300);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.level-badge svg {
+  color: var(--grass-700);
+}
+
+.level-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--grass-700);
+}
+
+.xp-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.xp-bar {
+  height: 10px;
+  background: var(--bg-card);
+  border-radius: 5px;
+  border: 1px solid var(--grass-300);
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background: var(--grass-600);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.xp-text {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--grass-600);
+  font-weight: 600;
+}
+
+.stat-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--grass-50);
+  color: var(--grass-700);
+  border-radius: 8px;
+  border: 1px solid var(--grass-200);
+  flex-shrink: 0;
+}
+
+.stat-icon.streak-icon {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--grass-100), var(--grass-200));
+  border-color: var(--grass-300);
+}
+
+.stat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+@media (max-width: 1024px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1.5rem;
+  }
+
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+}
+

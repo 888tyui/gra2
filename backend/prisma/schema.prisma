@@ -13,6 +13,7 @@ model User {
   id                   String   @id @default(cuid())
   walletAddress        String   @unique
   username             String
+  bio                  String   @default("")
   xp                   Int      @default(0)
   level                Int      @default(1)
   streak               Int      @default(0)

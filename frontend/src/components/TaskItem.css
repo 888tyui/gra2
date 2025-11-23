@@ -1,0 +1,132 @@
+.task-item-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.task-item-card:hover {
+  background: var(--grass-50);
+  border-color: var(--grass-200);
+}
+
+.task-item-card.completed {
+  opacity: 0.6;
+}
+
+.task-item-card.completed .task-title {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+}
+
+.task-check {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--grass-400);
+  border-radius: 8px;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.task-check:hover {
+  border-color: var(--grass-600);
+  background: var(--grass-50);
+}
+
+.task-check.checked {
+  background: var(--grass-600);
+  border-color: var(--grass-600);
+}
+
+.task-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.task-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.task-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.task-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.task-category {
+  padding: 0.25rem 0.625rem;
+  background: var(--grass-50);
+  color: var(--grass-700);
+  border: 1px solid var(--grass-200);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.task-xp {
+  padding: 0.25rem 0.625rem;
+  background: var(--grass-700);
+  color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.task-delete-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.task-delete-btn:hover {
+  background: #fee;
+  color: #d00;
+  border-color: #fdd;
+}
+
+@media (max-width: 768px) {
+  .task-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-badges {
+    width: 100%;
+  }
+}
+

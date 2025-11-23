@@ -40,6 +40,28 @@ body {
   line-height: 1.6;
 }
 
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-primary: #0f1410;
+  --bg-secondary: #1a1f1a;
+  --bg-card: #1e231e;
+  --text-primary: #e8f3e8;
+  --text-secondary: #a8d5a8;
+  --text-tertiary: #7bc17b;
+  --border: #2d6b2d;
+  --border-subtle: #1e4a1e;
+  --shadow: rgba(90, 172, 90, 0.1);
+  
+  --grass-50: #1e4a1e;
+  --grass-100: #2d6b2d;
+  --grass-200: #3d8f3d;
+  --grass-300: #5aac5a;
+  --grass-400: #7bc17b;
+  --grass-500: #5aac5a;
+  --grass-600: #7bc17b;
+  --grass-700: #a8d5a8;
+}
+
 #root {
   min-height: 100vh;
 }

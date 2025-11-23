@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
-import LandingPage from './pages/LandingPage';
-import AboutPage from './pages/AboutPage';
-import DocsPage from './pages/DocsPage';
-import AppPage from './pages/AppPage';
+import { ThemeProvider } from './context/ThemeContext';
+import AppLayout from './components/AppLayout';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 function App() {
@@ -40,18 +38,17 @@ function App() {
     <ConnectionProvider endpoint={endpoint} config={config}>
       <WalletProvider wallets={wallets} autoConnect={false}>
         <WalletModalProvider>
-          <AuthProvider>
-            <TaskProvider>
-              <Router>
-                <Routes>
-                  <Route path="/" element={<LandingPage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/docs" element={<DocsPage />} />
-                  <Route path="/app" element={<AppPage />} />
-                </Routes>
-              </Router>
-            </TaskProvider>
-          </AuthProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <TaskProvider>
+                <Router>
+                  <Routes>
+                    <Route path="/*" element={<AppLayout />} />
+                  </Routes>
+                </Router>
+              </TaskProvider>
+            </AuthProvider>
+          </ThemeProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

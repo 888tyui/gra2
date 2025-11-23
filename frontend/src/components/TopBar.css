@@ -1,0 +1,60 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 2rem;
+}
+
+.topbar-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--grass-700);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.stat-badge:hover {
+  border-color: var(--grass-300);
+  background: var(--grass-50);
+}
+
+.stat-badge.streak {
+  background: var(--grass-50);
+  border-color: var(--grass-300);
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 1rem;
+  }
+
+  .topbar-stats {
+    gap: 0.5rem;
+  }
+
+  .stat-badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .stat-badge svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+

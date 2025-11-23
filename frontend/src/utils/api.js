@@ -26,7 +26,7 @@ export const verifyWallet = (walletAddress, signature, message) =>
 
 // User
 export const getUserProfile = () => api.get('/users/me');
-export const updateUsername = (username) => api.patch('/users/me/username', { username });
+export const updateUsername = (username, bio) => api.patch('/users/me/username', { username, bio });
 export const getUserStats = () => api.get('/users/me/stats');
 
 // Tasks

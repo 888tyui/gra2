@@ -1,0 +1,108 @@
+.checkin-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  padding: 2rem;
+}
+
+.checkin-modal {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  animation: slideUp 0.3s ease;
+}
+
+.checkin-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
+  color: white;
+  border-radius: 50%;
+  animation: pulse 1s ease infinite;
+}
+
+.checkin-modal h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.checkin-modal p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.checkin-reward {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--grass-50), var(--grass-100));
+  border: 1px solid var(--grass-300);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  color: var(--grass-700);
+}
+
+.reward-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.checkin-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: var(--grass-600);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.checkin-btn:hover {
+  background: var(--grass-700);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .checkin-overlay {
+    padding: 0;
+  }
+
+  .checkin-modal {
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+}
+

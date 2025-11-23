@@ -27,24 +27,28 @@ router.get('/me', requireAuth, async (req, res) => {
   }
 });
 
-// Update username
+// Update username and bio
 router.patch('/me/username', requireAuth, async (req, res) => {
   try {
-    const { username } = req.body;
+    const { username, bio } = req.body;
     
-    if (!username || username.trim().length < 3) {
+    if (username && username.trim().length < 3) {
       return res.status(400).json({ error: 'Username must be at least 3 characters' });
     }
     
+    const updateData = {};
+    if (username !== undefined) updateData.username = username.trim();
+    if (bio !== undefined) updateData.bio = bio.trim();
+    
     const updatedUser = await prisma.user.update({
       where: { id: req.user.id },
-      data: { username: username.trim() }
+      data: updateData
     });
     
     res.json({ user: updatedUser });
   } catch (error) {
-    console.error('Update username error:', error);
-    res.status(500).json({ error: 'Failed to update username' });
+    console.error('Update profile error:', error);
+    res.status(500).json({ error: 'Failed to update profile' });
   }
 });
 
