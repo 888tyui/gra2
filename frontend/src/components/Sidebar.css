@@ -4,7 +4,6 @@
   border-right: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  padding: 2rem 0;
 }
 
 .sidebar-header {
