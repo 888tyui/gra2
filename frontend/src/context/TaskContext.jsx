@@ -16,14 +16,15 @@ export const TaskProvider = ({ children }) => {
   const { user, isAuthenticated, refreshUser } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState({ completed: 'false', category: 'all' });
+  const [filter, setFilter] = useState({ category: 'all' });
 
   const fetchTasks = async () => {
     if (!isAuthenticated) return;
     
     setLoading(true);
     try {
-      const { data } = await api.getTasks(filter);
+      // Fetch all tasks (completed and active)
+      const { data } = await api.getTasks({});
       setTasks(data.tasks);
     } catch (err) {
       console.error('Fetch tasks error:', err);
@@ -99,7 +100,7 @@ export const TaskProvider = ({ children }) => {
     } else {
       setTasks([]);
     }
-  }, [isAuthenticated, filter]);
+  }, [isAuthenticated]);
 
   return (
     <TaskContext.Provider
