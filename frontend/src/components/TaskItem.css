@@ -15,12 +15,26 @@
 }
 
 .task-item-card.completed {
-  opacity: 0.6;
+  background: var(--bg-card);
+  border-color: var(--grass-200);
+}
+
+.task-item-card.completed:hover {
+  background: var(--bg-card);
+  border-color: var(--grass-300);
 }
 
 .task-item-card.completed .task-title {
-  text-decoration: line-through;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
+}
+
+.task-item-card.show-completed {
+  opacity: 1;
+}
+
+.task-item-card.show-completed .task-check {
+  background: var(--grass-600);
+  border-color: var(--grass-600);
 }
 
 .task-check {

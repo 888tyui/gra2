@@ -11,6 +11,11 @@
   padding: 1.5rem;
 }
 
+.task-section.completed-section {
+  background: linear-gradient(135deg, var(--grass-50), var(--bg-card));
+  border-color: var(--grass-200);
+}
+
 .section-header {
   display: flex;
   align-items: center;
@@ -24,6 +29,21 @@
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
+  color: white;
+  border-radius: 8px;
+  font-size: 1.125rem;
 }
 
 .task-count {

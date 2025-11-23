@@ -55,14 +55,17 @@ function TodayTaskList() {
       </div>
 
       {completedToday.length > 0 && (
-        <div className="task-section">
+        <div className="task-section completed-section">
           <div className="section-header">
-            <h3>Completed Today</h3>
+            <h3>
+              <div className="section-icon">✓</div>
+              Completed Today
+            </h3>
             <span className="task-count">{completedToday.length}</span>
           </div>
           
           <div className="task-grid">
-            {completedToday.map(task => <TaskItem key={task.id} task={task} onXPGain={handleXPGain} />)}
+            {completedToday.map(task => <TaskItem key={task.id} task={task} onXPGain={handleXPGain} showCompleted />)}
           </div>
         </div>
       )}

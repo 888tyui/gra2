@@ -6,7 +6,7 @@ import { TASK_CATEGORIES } from '../config';
 import ConfirmModal from './ConfirmModal';
 import './TaskItem.css';
 
-function TaskItem({ task, onXPGain }) {
+function TaskItem({ task, onXPGain, showCompleted }) {
   const { completeTask, uncompleteTask, deleteTask } = useTask();
   const [loading, setLoading] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -56,7 +56,7 @@ function TaskItem({ task, onXPGain }) {
 
   return (
     <>
-      <div className={`task-item-card ${task.completed ? 'completed' : ''}`}>
+      <div className={`task-item-card ${task.completed ? 'completed' : ''} ${showCompleted ? 'show-completed' : ''}`}>
         <button
           className={`task-check ${task.completed ? 'checked' : ''}`}
           onClick={handleToggle}
