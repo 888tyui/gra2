@@ -29,26 +29,38 @@ export const AuthProvider = ({ children }) => {
     setError(null);
 
     try {
+      console.log('🔵 [1/4] Starting login...');
       const walletAddress = publicKey.toBase58();
+      console.log('🔵 Wallet address:', walletAddress);
       
       // Get nonce
+      console.log('🔵 [2/4] Getting nonce from backend...');
+      const startNonce = Date.now();
       const { data: { nonce } } = await getNonce(walletAddress);
+      console.log(`✅ Nonce received in ${Date.now() - startNonce}ms`);
       
       // Sign message
+      console.log('🔵 [3/4] Requesting signature from wallet...');
+      const startSign = Date.now();
       const messageBytes = new TextEncoder().encode(nonce);
       const signatureBytes = await signMessage(messageBytes);
+      console.log(`✅ Signature received in ${Date.now() - startSign}ms`);
       const signature = bs58.encode(signatureBytes);
       
       // Verify with backend
+      console.log('🔵 [4/4] Verifying with backend...');
+      const startVerify = Date.now();
       const { data } = await verifyWallet(walletAddress, signature, nonce);
+      console.log(`✅ Verified in ${Date.now() - startVerify}ms`);
       
       if (data.success) {
         setUser(data.user);
         setAuthHeader(walletAddress);
         localStorage.setItem('walletAddress', walletAddress);
+        console.log('✅ Login successful!');
       }
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('❌ Login error:', err);
       setError(err.response?.data?.error || 'Login failed');
     } finally {
       setLoading(false);
