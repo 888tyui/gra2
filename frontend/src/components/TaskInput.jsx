@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useTask } from '../context/TaskContext';
 import { TASK_CATEGORIES, TASK_PRIORITIES, XP_REWARDS } from '../config';
-import { Plus, Sparkles } from 'lucide-react';
+import { Plus, Sparkles, Wand2 } from 'lucide-react';
+import { getAIHelp } from '../utils/api';
 import './TaskInput.css';
 
 function TaskInput() {
@@ -10,8 +11,29 @@ function TaskInput() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('other');
   const [priority, setPriority] = useState('medium');
+  const [recurring, setRecurring] = useState('none');
   const [showDetails, setShowDetails] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const handleAIRewrite = async () => {
+    if (!title.trim()) return;
+
+    setAiLoading(true);
+    try {
+      const { data } = await getAIHelp(
+        `Rewrite this task to be more actionable and clear: "${title}". Return ONLY the improved task title, nothing else.`,
+        null
+      );
+      
+      const improvedTitle = data.tip.replace(/["""]/g, '').trim();
+      setTitle(improvedTitle);
+    } catch (err) {
+      console.error('AI rewrite error:', err);
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +47,7 @@ function TaskInput() {
         description: description.trim(),
         category,
         priority,
+        recurring,
         xpReward: XP_REWARDS[priority]
       });
 
@@ -32,6 +55,7 @@ function TaskInput() {
       setDescription('');
       setCategory('other');
       setPriority('medium');
+      setRecurring('none');
       setShowDetails(false);
     } catch (err) {
       console.error('Failed to add task:', err);
@@ -51,6 +75,16 @@ function TaskInput() {
             onChange={(e) => setTitle(e.target.value)}
             className="task-input-main"
           />
+          
+          <button
+            type="button"
+            onClick={handleAIRewrite}
+            className="ai-rewrite-btn"
+            title="AI Rewrite"
+            disabled={!title.trim() || aiLoading}
+          >
+            <Wand2 size={18} />
+          </button>
           
           <button
             type="button"
@@ -110,6 +144,21 @@ function TaskInput() {
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div className="input-field">
+              <label>Recurring</label>
+              <select 
+                value={recurring} 
+                onChange={(e) => setRecurring(e.target.value)}
+                className="task-select"
+              >
+                <option value="none">No Repeat</option>
+                <option value="daily">Every Day</option>
+                <option value="weekly">Every Week</option>
+                <option value="weekdays">Weekdays (Mon-Fri)</option>
+                <option value="weekends">Weekends (Sat-Sun)</option>
+              </select>
             </div>
           </div>
         )}

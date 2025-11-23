@@ -40,6 +40,26 @@
   border-color: var(--grass-500);
 }
 
+.ai-rewrite-btn {
+  padding: 0 1rem;
+  background: linear-gradient(135deg, var(--grass-100), var(--grass-200));
+  color: var(--grass-700);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--grass-300);
+  transition: all 0.2s ease;
+}
+
+.ai-rewrite-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--grass-200), var(--grass-300));
+  border-color: var(--grass-500);
+  transform: translateY(-1px);
+}
+
+.ai-rewrite-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .details-toggle {
   padding: 0 1rem;
   background: var(--bg-secondary);

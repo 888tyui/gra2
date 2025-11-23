@@ -72,6 +72,8 @@ enum Recurring {
   none
   daily
   weekly
+  weekdays
+  weekends
   monthly
 }
 

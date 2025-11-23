@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTask } from '../context/TaskContext';
-import { Check, Trash2 } from 'lucide-react';
+import { Check, Trash2, Repeat } from 'lucide-react';
 import { format } from 'date-fns';
 import { TASK_CATEGORIES } from '../config';
 import './TaskItem.css';
@@ -31,6 +31,19 @@ function TaskItem({ task }) {
   };
 
   const categoryInfo = TASK_CATEGORIES.find(c => c.value === task.category);
+  
+  const getRecurringLabel = (recurring) => {
+    const labels = {
+      daily: 'Daily',
+      weekly: 'Weekly',
+      weekdays: 'Weekdays',
+      weekends: 'Weekends',
+      none: null
+    };
+    return labels[recurring] || labels.none;
+  };
+
+  const recurringLabel = getRecurringLabel(task.recurring);
 
   return (
     <div className={`task-item-card ${task.completed ? 'completed' : ''}`}>
@@ -51,6 +64,12 @@ function TaskItem({ task }) {
         </div>
 
         <div className="task-badges">
+          {recurringLabel && (
+            <span className="task-recurring">
+              <Repeat size={12} />
+              {recurringLabel}
+            </span>
+          )}
           <span className="task-category">{categoryInfo?.label || '✨'}</span>
           <span className="task-xp mono">+{task.xpReward} XP</span>
         </div>
@@ -68,4 +87,3 @@ function TaskItem({ task }) {
 }
 
 export default TaskItem;
-
