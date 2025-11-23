@@ -25,6 +25,14 @@ function TodayTaskList() {
     return completedDate.getTime() === today.getTime();
   });
 
+  const handleXPGain = (xpGained, newLevel) => {
+    setXpNotification({ xpGained, newLevel });
+  };
+
+  const closeNotification = () => {
+    setXpNotification(null);
+  };
+
   return (
     <div className="today-task-list">
       <div className="task-section">
@@ -58,7 +66,6 @@ function TodayTaskList() {
           </div>
         </div>
       )}
-      </div>
 
       {xpNotification && (
         <XPNotification
@@ -67,7 +74,7 @@ function TodayTaskList() {
           onClose={closeNotification}
         />
       )}
-    </>
+    </div>
   );
 }
 
