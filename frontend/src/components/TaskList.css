@@ -1,0 +1,228 @@
+.task-list-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.task-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.task-list-header h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.task-filters {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.filter-button:hover {
+  color: var(--grass-700);
+}
+
+.filter-button.active {
+  background: var(--bg-card);
+  color: var(--grass-700);
+  font-weight: 600;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-list-empty {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text-tertiary);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-subtle);
+}
+
+.task-item:hover {
+  background: var(--grass-50);
+  border-color: var(--grass-200);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+  background: var(--bg-secondary);
+}
+
+.task-item.completed:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+}
+
+.task-checkbox {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--grass-400);
+  border-radius: 8px;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.task-checkbox:hover {
+  border-color: var(--grass-600);
+  background: var(--grass-50);
+}
+
+.task-checkbox.checked {
+  background: var(--grass-600);
+  border-color: var(--grass-600);
+}
+
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.task-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.task-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.task-category {
+  padding: 0.25rem 0.75rem;
+  background: var(--grass-50);
+  color: var(--grass-700);
+  border: 1px solid var(--grass-200);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.task-xp {
+  padding: 0.25rem 0.75rem;
+  background: var(--grass-700);
+  color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--grass-700);
+}
+
+.task-description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.task-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-date {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.task-delete {
+  flex-shrink: 0;
+  padding: 0.5rem;
+  color: var(--text-tertiary);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.task-delete:hover {
+  background: #fee;
+  color: #d00;
+  border-color: #fdd;
+}
+
+@media (max-width: 640px) {
+  .task-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .task-filters {
+    width: 100%;
+  }
+  
+  .filter-button {
+    flex: 1;
+  }
+  
+  .task-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .task-meta {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

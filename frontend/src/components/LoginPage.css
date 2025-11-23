@@ -1,0 +1,150 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--grass-50) 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.login-container {
+  max-width: 500px;
+  width: 100%;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  box-shadow: 0 20px 60px var(--shadow);
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 0.5s ease;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
+  border-radius: var(--radius-md);
+  color: white;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease infinite;
+}
+
+.logo-text {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.login-content {
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--grass-700);
+  font-weight: 500;
+}
+
+.feature svg {
+  flex-shrink: 0;
+}
+
+.wallet-connect {
+  margin-bottom: 1rem;
+}
+
+.wallet-connect button {
+  width: 100%;
+  padding: 1rem 2rem !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-md) !important;
+  background: linear-gradient(135deg, var(--grass-500), var(--grass-700)) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.wallet-connect button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+/* Animated grass background */
+.login-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  z-index: 1;
+}
+
+.grass-blade {
+  position: absolute;
+  bottom: 0;
+  width: 8px;
+  height: 120px;
+  background: linear-gradient(to top, var(--grass-600), var(--grass-400));
+  border-radius: 4px 4px 0 0;
+  transform-origin: bottom center;
+  animation: sway 3s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .login-container {
+    padding: 2rem;
+  }
+  
+  .logo-text {
+    font-size: 2.5rem;
+  }
+}
+
