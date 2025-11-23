@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTask } from '../context/TaskContext';
 import TaskItem from './TaskItem';
+import XPNotification from './XPNotification';
 import './TodayTaskList.css';
 
 function TodayTaskList() {
   const { tasks, loading } = useTask();
+  const [xpNotification, setXpNotification] = useState(null);
 
   // Filter for today's tasks
   const today = new Date();
@@ -39,7 +41,7 @@ function TodayTaskList() {
               <p>No tasks yet. Add your first goal! 🎯</p>
             </div>
           ) : (
-            todayTasks.map(task => <TaskItem key={task.id} task={task} />)
+            todayTasks.map(task => <TaskItem key={task.id} task={task} onXPGain={handleXPGain} />)
           )}
         </div>
       </div>
@@ -52,11 +54,20 @@ function TodayTaskList() {
           </div>
           
           <div className="task-grid">
-            {completedToday.map(task => <TaskItem key={task.id} task={task} />)}
+            {completedToday.map(task => <TaskItem key={task.id} task={task} onXPGain={handleXPGain} />)}
           </div>
         </div>
       )}
-    </div>
+      </div>
+
+      {xpNotification && (
+        <XPNotification
+          xpGained={xpNotification.xpGained}
+          newLevel={xpNotification.newLevel}
+          onClose={closeNotification}
+        />
+      )}
+    </>
   );
 }
 

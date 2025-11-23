@@ -18,8 +18,9 @@ function CalendarPage() {
 
   const getTasksForDate = (date) => {
     return tasks.filter(task => {
-      const taskDate = new Date(task.completedAt || task.createdAt);
-      return isSameDay(taskDate, date) && task.completed;
+      if (!task.completed || !task.completedAt) return false;
+      const completedDate = new Date(task.completedAt);
+      return isSameDay(completedDate, date);
     });
   };
 

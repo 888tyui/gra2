@@ -57,8 +57,11 @@ export const TaskProvider = ({ children }) => {
   const completeTaskAction = async (taskId) => {
     try {
       const { data } = await api.completeTask(taskId);
-      setTasks(prev => prev.map(t => t._id === taskId ? data.task : t));
+      // Immediately update local state
+      setTasks(prev => prev.map(t => (t.id === taskId || t._id === taskId) ? data.task : t));
       refreshUser(data.user);
+      // Refetch to ensure sync
+      fetchTasks();
       return data;
     } catch (err) {
       console.error('Complete task error:', err);
@@ -69,7 +72,9 @@ export const TaskProvider = ({ children }) => {
   const uncompleteTaskAction = async (taskId) => {
     try {
       const { data } = await api.uncompleteTask(taskId);
-      setTasks(prev => prev.map(t => t._id === taskId ? data.task : t));
+      // Immediately update local state
+      setTasks(prev => prev.map(t => (t.id === taskId || t._id === taskId) ? data.task : t));
+      fetchTasks();
       return data.task;
     } catch (err) {
       console.error('Uncomplete task error:', err);
@@ -80,7 +85,8 @@ export const TaskProvider = ({ children }) => {
   const removeTask = async (taskId) => {
     try {
       await api.deleteTask(taskId);
-      setTasks(prev => prev.filter(t => t._id !== taskId));
+      // Immediately remove from local state
+      setTasks(prev => prev.filter(t => t.id !== taskId && t._id !== taskId));
     } catch (err) {
       console.error('Delete task error:', err);
       throw err;
