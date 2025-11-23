@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
-import { clusterApiUrl } from '@solana/web3.js';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import LandingPage from './pages/LandingPage';
@@ -15,8 +13,11 @@ import AppPage from './pages/AppPage';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 function App() {
-  const network = WalletAdapterNetwork.Mainnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  // Use faster RPC endpoint - Helius free tier or custom RPC
+  const endpoint = useMemo(() => 
+    import.meta.env.VITE_SOLANA_RPC || 'https://api.mainnet-beta.solana.com',
+    []
+  );
   
   const wallets = useMemo(
     () => [
