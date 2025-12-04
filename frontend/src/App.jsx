@@ -3,17 +3,46 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { WagmiProvider, createConfig, http } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RainbowKitProvider, getDefaultConfig, darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
+import { 
+  RainbowKitProvider, 
+  connectorsForWallets, 
+  darkTheme, 
+  lightTheme 
+} from '@rainbow-me/rainbowkit';
+import {
+  metaMaskWallet,
+  trustWallet,
+  walletConnectWallet,
+  coinbaseWallet,
+  braveWallet,
+  rainbowWallet
+} from '@rainbow-me/rainbowkit/wallets';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import AppLayout from './components/AppLayout';
 import '@rainbow-me/rainbowkit/styles.css';
 
-const config = getDefaultConfig({
-  appName: 'Grass - Touch Grass',
-  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Get from https://cloud.walletconnect.com
-  chains: [bsc, bscTestnet],
+const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'demo';
+const chains = [bsc, bscTestnet];
+
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Popular',
+    wallets: [
+      metaMaskWallet({ projectId, chains }),
+      trustWallet({ projectId, chains }),
+      coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
+      walletConnectWallet({ projectId, chains }),
+      braveWallet({ chains }),
+      rainbowWallet({ projectId, chains })
+    ],
+  },
+]);
+
+const config = createConfig({
+  chains,
+  connectors,
   transports: {
     [bsc.id]: http(),
     [bscTestnet.id]: http(),
@@ -28,6 +57,8 @@ function AppContent() {
   return (
     <RainbowKitProvider 
       theme={theme === 'dark' ? darkTheme() : lightTheme()}
+      chains={chains}
+      locale="en"
       modalSize="compact"
     >
       <AuthProvider>
