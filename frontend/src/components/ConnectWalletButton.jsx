@@ -1,6 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { bsc } from 'wagmi/chains';
+import metamaskIcon from '../assets/wallets/metamask.svg';
+import coinbaseIcon from '../assets/wallets/coinbase.svg';
+import injectedIcon from '../assets/wallets/injected.svg';
+import binanceIcon from '../assets/wallets/binance.svg';
+import defaultIcon from '../assets/wallets/default.svg';
 import './ConnectWalletButton.css';
 
 const shortenAddress = (address) =>
@@ -66,11 +71,15 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
 
   const preferredConnectors = useMemo(() => {
     const preferredOrder = ['metaMask', 'coinbaseWallet', 'injected'];
-    return [...connectors].sort((a, b) => {
-      return (
-        preferredOrder.indexOf(a.id) - preferredOrder.indexOf(b.id)
-      );
-    });
+    const hiddenConnectors = new Set(['app.phantom']);
+    const orderIndex = (id) => {
+      const idx = preferredOrder.indexOf(id);
+      return idx === -1 ? preferredOrder.length : idx;
+    };
+
+    return [...connectors]
+      .filter((connector) => !hiddenConnectors.has(connector.id))
+      .sort((a, b) => orderIndex(a.id) - orderIndex(b.id));
   }, [connectors]);
   const connectorAvailability = useMemo(() => {
     return preferredConnectors.reduce((acc, connector) => {
@@ -191,6 +200,16 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
     );
   }
 
+  const walletIcons = {
+    metaMask: metamaskIcon,
+    metaMaskSDK: metamaskIcon,
+    coinbaseWallet: coinbaseIcon,
+    coinbaseWalletSDK: coinbaseIcon,
+    injected: injectedIcon,
+    'com.binance.wallet': binanceIcon,
+    default: defaultIcon,
+  };
+
   return (
     <>
       <button
@@ -225,17 +244,26 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
             </div>
 
             <div className="wallet-list modal">
-              {preferredConnectors.map((connector) => (
-                <button
-                  key={connector.id}
-                  className="wallet-btn"
-                  onClick={() => handleConnect(connector.id)}
-                  disabled={isPending || !connectorAvailability[connector.id]}
-                >
-                  {connector.name}
-                  {!connectorAvailability[connector.id] && ' (Not detected)'}
-                </button>
-              ))}
+              {preferredConnectors.map((connector) => {
+                const isAvailable = connectorAvailability[connector.id];
+                const iconSrc = walletIcons[connector.id] || walletIcons.default;
+                const label = isAvailable ? connector.name : `${connector.name} (Not detected)`;
+
+                return (
+                  <button
+                    type="button"
+                    key={connector.id}
+                    className="wallet-btn wallet-option"
+                    onClick={() => handleConnect(connector.id)}
+                    disabled={isPending || !isAvailable}
+                  >
+                    <span className="wallet-label">{label}</span>
+                    <span className="wallet-icon">
+                      <img src={iconSrc} alt={`${connector.name} icon`} />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
             {!hasReadyConnector && (

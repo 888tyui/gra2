@@ -99,25 +99,102 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.25rem;
+  gap: 0.75rem;
 }
 
 .wallet-modal-header h3 {
   margin: 0;
   font-size: 1.125rem;
   color: var(--text-primary);
+  white-space: nowrap;
+  flex: 1;
 }
 
 .wallet-modal-close {
-  border: none;
-  background: none;
-  font-size: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 1rem;
   color: var(--text-secondary);
   cursor: pointer;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.wallet-modal-close:hover {
+  background: var(--grass-50);
+  border-color: var(--grass-300);
+  color: var(--grass-600);
 }
 
 .wallet-list.modal {
   margin-bottom: 0.5rem;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border: 1.5px solid var(--grass-300);
+  background: transparent;
+  color: var(--grass-700);
+  text-align: right;
+  box-shadow: none;
+}
+
+.wallet-option .wallet-label {
+  flex: 1;
+  text-align: right;
+}
+
+.wallet-option .wallet-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  padding: 2px;
+  background: rgba(16, 185, 129, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-option .wallet-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wallet-option:hover:not(:disabled) {
+  background: var(--grass-600);
+  border-color: var(--grass-600);
+  color: white;
+  transform: none;
+}
+
+.wallet-option:hover:not(:disabled) .wallet-label {
+  color: white;
+}
+
+.wallet-option:hover:not(:disabled) .wallet-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.wallet-option:disabled {
+  border-color: var(--border);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.wallet-option:disabled .wallet-icon {
+  opacity: 0.4;
+  background: transparent;
 }
 
 @keyframes modalFade {
