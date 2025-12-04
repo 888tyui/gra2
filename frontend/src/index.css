@@ -191,3 +191,76 @@ input:focus, textarea:focus {
   background-clip: text;
 }
 
+/* Wallet adapter overrides */
+.wallet-adapter-modal-wrapper,
+.wallet-adapter-modal-overlay {
+  backdrop-filter: blur(2px);
+}
+
+.wallet-adapter-modal {
+  background: var(--bg-card) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35) !important;
+  padding: 1.75rem !important;
+}
+
+.wallet-adapter-modal-title {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.wallet-adapter-modal-button-close {
+  border: 1px solid var(--border) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  line-height: 1 !important;
+}
+
+.wallet-adapter-modal-button-close:hover {
+  background: var(--grass-50) !important;
+  color: var(--grass-600) !important;
+  border-color: var(--grass-300) !important;
+}
+
+.wallet-adapter-modal-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-modal-list-item {
+  border-radius: var(--radius-md) !important;
+  border: 1.5px solid var(--grass-300) !important;
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  padding: 0.875rem 1.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  text-align: left !important;
+  box-shadow: none !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-modal-list-item:hover {
+  border-color: var(--grass-400) !important;
+  color: var(--grass-800) !important;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.18) !important;
+}
+
+.wallet-adapter-modal-list-item-name {
+  font-weight: 600 !important;
+}
+
+.wallet-adapter-modal-list-item-logo {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+}
+
