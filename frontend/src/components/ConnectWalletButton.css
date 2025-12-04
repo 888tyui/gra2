@@ -139,18 +139,19 @@
 .wallet-option {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.75rem;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
   border: 1.5px solid var(--grass-300);
-  background: #ffffff;
-  color: var(--grass-700);
-  text-align: right;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  text-align: left;
   box-shadow: none;
 }
 
 .wallet-option .wallet-label {
   flex: 1;
-  text-align: right;
+  text-align: left;
 }
 
 .wallet-option .wallet-icon {
@@ -171,9 +172,9 @@
 }
 
 .wallet-option:hover:not(:disabled) {
-  background: #ffffff;
+  background: var(--bg-card);
   color: var(--grass-800);
-  border-color: var(--grass-300);
+  border-color: var(--grass-400);
   box-shadow: 0 12px 30px rgba(16, 185, 129, 0.18);
 }
 
