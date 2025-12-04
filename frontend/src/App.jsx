@@ -3,52 +3,21 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { WagmiProvider, createConfig, http } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { 
-  RainbowKitProvider, 
-  connectorsForWallets, 
-  darkTheme, 
-  lightTheme 
-} from '@rainbow-me/rainbowkit';
-import {
-  metaMaskWallet,
-  trustWallet,
-  walletConnectWallet,
-  coinbaseWallet,
-  braveWallet,
-  rainbowWallet
-} from '@rainbow-me/rainbowkit/wallets';
+import { injected, metaMask, coinbaseWallet } from 'wagmi/connectors';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 import AppLayout from './components/AppLayout';
-import '@rainbow-me/rainbowkit/styles.css';
 
-const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'demo';
 const chains = [bsc, bscTestnet];
-
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Popular',
-      wallets: [
-        metaMaskWallet({ projectId, chains }),
-        trustWallet({ projectId, chains }),
-        coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
-        walletConnectWallet({ projectId, chains }),
-        braveWallet({ chains }),
-        rainbowWallet({ projectId, chains }),
-      ],
-    },
-  ],
-  {
-    projectId,
-    appName: 'Grass - Touch Grass',
-  }
-);
 
 const config = createConfig({
   chains,
-  connectors,
+  connectors: [
+    metaMask({ dappMetadata: { name: 'Grass - Touch Grass' } }),
+    coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
+    injected({ shimDisconnect: true }),
+  ],
   transports: {
     [bsc.id]: http(),
     [bscTestnet.id]: http(),
@@ -57,35 +26,20 @@ const config = createConfig({
 
 const queryClient = new QueryClient();
 
-function AppContent() {
-  const { theme } = useTheme();
-  
-  return (
-    <RainbowKitProvider 
-      theme={theme === 'dark' ? darkTheme() : lightTheme()}
-      chains={chains}
-      locale="en"
-      modalSize="compact"
-    >
-      <AuthProvider>
-        <TaskProvider>
-          <Router>
-            <Routes>
-              <Route path="/*" element={<AppLayout />} />
-            </Routes>
-          </Router>
-        </TaskProvider>
-      </AuthProvider>
-    </RainbowKitProvider>
-  );
-}
-
 function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <AppContent />
+          <AuthProvider>
+            <TaskProvider>
+              <Router>
+                <Routes>
+                  <Route path="/*" element={<AppLayout />} />
+                </Routes>
+              </Router>
+            </TaskProvider>
+          </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </WagmiProvider>

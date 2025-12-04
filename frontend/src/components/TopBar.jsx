@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Award, Zap } from 'lucide-react';
+import ConnectWalletButton from './ConnectWalletButton';
 import './TopBar.css';
 
 function TopBar() {
@@ -23,11 +23,7 @@ function TopBar() {
         </div>
       </div>
 
-      <ConnectButton 
-        chainStatus="icon"
-        accountStatus="avatar"
-        showBalance={false}
-      />
+      <ConnectWalletButton compact variant="secondary" />
     </div>
   );
 }

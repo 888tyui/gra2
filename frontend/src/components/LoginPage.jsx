@@ -1,6 +1,6 @@
 import React from 'react';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Leaf, Sparkles, TrendingUp, Award } from 'lucide-react';
+import ConnectWalletButton from './ConnectWalletButton';
 import './LoginPage.css';
 
 function LoginPage() {
@@ -36,11 +36,7 @@ function LoginPage() {
           </div>
 
           <div className="wallet-connect">
-            <ConnectButton 
-              chainStatus="none"
-              accountStatus="avatar"
-              showBalance={false}
-            />
+            <ConnectWalletButton />
           </div>
 
           <p className="hint">

@@ -41,8 +41,8 @@
 ### BNB Chain (BSC):
 - ✅ MetaMask (가장 인기)
 - ✅ Coinbase Wallet
-- ✅ Brave Wallet
-- ✅ 기타 EVM 호환 지갑 (WalletConnect 미사용)
+- ✅ Brave Wallet (내장 지갑)
+- ✅ 기타 EVM 호환 지갑 (Injected)
 
 ---
 
@@ -50,7 +50,7 @@
 
 ### WalletConnect 사용 여부
 - 현재 버전은 WalletConnect를 사용하지 않습니다.
-- `VITE_WALLETCONNECT_PROJECT_ID` 환경 변수는 선택 사항입니다.
+- `VITE_WALLETCONNECT_PROJECT_ID` 변수가 없어도 됩니다.
 
 ---
 
@@ -120,7 +120,7 @@ ethers.verifyMessage(message, signature)
 3. **Brave Wallet** (브라우저 내장)
 
 ### Mobile:
-> 현재 버전은 WalletConnect를 사용하지 않으므로 MetaMask Mobile 또는 Coinbase Wallet 브라우저를 사용하세요.
+현재는 WalletConnect를 사용하지 않으므로, **MetaMask Mobile** 또는 **Coinbase Wallet 브라우저**에서 직접 접속해야 합니다.
 
 ---
 
