@@ -6,6 +6,42 @@ import './ConnectWalletButton.css';
 const shortenAddress = (address) =>
   `${address.slice(0, 4)}...${address.slice(-4)}`;
 
+const detectEnvSignals = () => {
+  if (typeof window === 'undefined') {
+    return {
+      hasEthereum: false,
+      metaMaskDetected: false,
+      coinbaseDetected: false,
+      phantomDetected: false,
+      binanceDetected: false,
+      providerCount: 0
+    };
+  }
+
+  const { ethereum } = window;
+  const providers = ethereum?.providers || [];
+  const isMetaMaskProvider = (provider) => provider?.isMetaMask;
+  const isCoinbaseProvider = (provider) =>
+    provider?.isCoinbaseWallet || provider?.isCoinbaseWalletBrowser;
+  const isPhantomProvider = (provider) => provider?.isPhantom;
+  const isBinanceProvider = (provider) =>
+    provider?.isBinance || provider?.isBinanceChain;
+
+  return {
+    hasEthereum: Boolean(ethereum),
+    metaMaskDetected:
+      Boolean(ethereum?.isMetaMask) || providers.some(isMetaMaskProvider),
+    coinbaseDetected:
+      Boolean(ethereum?.isCoinbaseWallet) ||
+      providers.some(isCoinbaseProvider),
+    phantomDetected:
+      Boolean(ethereum?.isPhantom) || providers.some(isPhantomProvider),
+    binanceDetected:
+      Boolean(window.BinanceChain) || providers.some(isBinanceProvider),
+    providerCount: providers.length
+  };
+};
+
 const resolveDebugFlag = () => {
   if (typeof window !== 'undefined' && typeof window.__WALLET_DEBUG__ === 'boolean') {
     return window.__WALLET_DEBUG__;
@@ -26,6 +62,7 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
   const { disconnect } = useDisconnect();
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [envSignals, setEnvSignals] = useState(() => detectEnvSignals());
 
   const preferredConnectors = useMemo(() => {
     const preferredOrder = ['metaMask', 'coinbaseWallet', 'injected'];
@@ -35,9 +72,60 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
       );
     });
   }, [connectors]);
+  const connectorAvailability = useMemo(() => {
+    return preferredConnectors.reduce((acc, connector) => {
+      let manualDetection = false;
+      if (connector.id === 'metaMaskSDK') {
+        manualDetection = envSignals.metaMaskDetected;
+      } else if (connector.id === 'coinbaseWalletSDK') {
+        manualDetection = envSignals.coinbaseDetected;
+      } else if (connector.id === 'app.phantom') {
+        manualDetection = envSignals.phantomDetected;
+      } else if (connector.id === 'com.binance.wallet') {
+        manualDetection = envSignals.binanceDetected;
+      } else if (connector.id === 'injected') {
+        manualDetection = envSignals.hasEthereum;
+      }
+
+      acc[connector.id] = connector.ready || manualDetection;
+      return acc;
+    }, {});
+  }, [preferredConnectors, envSignals]);
+
   const hasReadyConnector = preferredConnectors.some(
-    (connector) => connector.ready
+    (connector) => connectorAvailability[connector.id]
   );
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const updateSignals = () => {
+      const snapshot = detectEnvSignals();
+      setEnvSignals(snapshot);
+      if (shouldDebug) {
+        console.groupCollapsed('[Wallet Debug] Environment signals');
+        console.log('Step 6: provider count', snapshot.providerCount);
+        console.log('Step 7: detections', snapshot);
+        console.groupEnd();
+      }
+    };
+
+    updateSignals();
+
+    const onEthereumInit = () => updateSignals();
+    window.addEventListener('ethereum#initialized', onEthereumInit, {
+      once: true
+    });
+
+    const interval = setInterval(updateSignals, 2000);
+
+    return () => {
+      window.removeEventListener('ethereum#initialized', onEthereumInit);
+      clearInterval(interval);
+    };
+  }, [shouldDebug]);
 
   useEffect(() => {
     if (!shouldDebug) {
@@ -58,8 +146,9 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
       preferredConnectors.map((c) => c.id)
     );
     console.log('Step 5: hasReadyConnector?', hasReadyConnector);
+    console.log('Step 8: availabilityMap', connectorAvailability);
     console.groupEnd();
-  }, [connectors, preferredConnectors, hasReadyConnector]);
+  }, [connectors, preferredConnectors, hasReadyConnector, connectorAvailability, shouldDebug]);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -141,10 +230,10 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
                   key={connector.id}
                   className="wallet-btn"
                   onClick={() => handleConnect(connector.id)}
-                  disabled={isPending || !connector.ready}
+                  disabled={isPending || !connectorAvailability[connector.id]}
                 >
                   {connector.name}
-                  {!connector.ready && ' (Not installed)'}
+                  {!connectorAvailability[connector.id] && ' (Not detected)'}
                 </button>
               ))}
             </div>
