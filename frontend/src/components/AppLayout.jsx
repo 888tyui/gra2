@@ -35,7 +35,7 @@ function AppLayout() {
   };
 
   if (!isAuthenticated) {
-    return <LoginPage />;
+    return <LoginPage variant="connect" />;
   }
 
   return (
@@ -45,11 +45,12 @@ function AppLayout() {
         <TopBar />
         <div className="app-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/today" replace />} />
-            <Route path="/today" element={<TodayPage />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route index element={<Navigate to="today" replace />} />
+            <Route path="today" element={<TodayPage />} />
+            <Route path="calendar" element={<CalendarPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="*" element={<Navigate to="today" replace />} />
           </Routes>
         </div>
       </div>

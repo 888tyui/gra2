@@ -8,6 +8,9 @@ import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { ThemeProvider } from './context/ThemeContext';
 import AppLayout from './components/AppLayout';
+import LoginPage from './components/LoginPage';
+import AboutPage from './pages/AboutPage';
+import DocsPage from './pages/DocsPage';
 import './utils/selectPreferredProvider';
 
 const chains = [bsc, bscTestnet];
@@ -39,7 +42,15 @@ function App() {
             <TaskProvider>
               <Router>
                 <Routes>
-                  <Route path="/*" element={<AppLayout />} />
+                  <Route path="/" element={<LoginPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/docs" element={<DocsPage />} />
+                  <Route path="/app/*" element={<AppLayout />} />
+                  <Route path="/today" element={<Navigate to="/app/today" replace />} />
+                  <Route path="/calendar" element={<Navigate to="/app/calendar" replace />} />
+                  <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
+                  <Route path="/settings" element={<Navigate to="/app/settings" replace />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </Router>
             </TaskProvider>

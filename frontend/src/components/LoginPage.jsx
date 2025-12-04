@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, TrendingUp, Award } from 'lucide-react';
 import ConnectWalletButton from './ConnectWalletButton';
 import logoMain from '../logot.png';
 import './LoginPage.css';
@@ -22,87 +21,73 @@ const grassBlades = [
   { left: '97%', delay: '0.7s', height: 145, duration: 4.1, opacity: 0.34, width: 9 }
 ];
 
-function LoginPage() {
+function LoginPage({ variant = 'marketing' }) {
+  const isMarketing = variant === 'marketing';
+
   return (
-    <div className="login-page">
+    <div className={`login-page ${isMarketing ? '' : 'login-page-connect'}`}>
       <div className="login-container">
         <div className="login-header">
           <div className="login-hero">
             <img src={logoMain} alt="Grass logotype" className="hero-logo-mark" />
             <h1 className="hero-wordmark">Grass.</h1>
             <p className="hero-subline">Gamified Self improvement for degens.</p>
-            <div className="hero-buttons">
-              <Link to="/app" className="hero-btn primary">Go to app</Link>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-btn secondary"
-              >
-                Twitter
-              </a>
-              <a
-                href="https://twitter.com/search?q=%24GRASS"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-btn tertiary"
-              >
-                $GRASS
-              </a>
-            </div>
+            {isMarketing && (
+              <div className="hero-buttons">
+                <Link to="/app" className="hero-btn primary">Go to app</Link>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-btn secondary"
+                >
+                  Twitter
+                </a>
+                <a
+                  href="https://twitter.com/search?q=%24GRASS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-btn tertiary"
+                >
+                  $GRASS
+                </a>
+              </div>
+            )}
           </div>
-        </div>
-
-        <div className="login-content">
-          <p className="subtitle">
-            Get rewarded for building healthy habits
-          </p>
-
-          <div className="features">
-            <div className="feature">
-              <Sparkles size={24} />
-              <span>Gamified Self-Improvement</span>
+          {!isMarketing && (
+            <div className="connect-panel">
+              <p className="connect-title">
+                Connect your wallet to enter the app
+              </p>
+              <div className="connect-action">
+                <ConnectWalletButton />
+              </div>
+              <p className="connect-hint">
+                Supports BNB Smart Chain (BSC)
+              </p>
             </div>
-            <div className="feature">
-              <TrendingUp size={24} />
-              <span>Level Up with XP</span>
-            </div>
-            <div className="feature">
-              <Award size={24} />
-              <span>Track Your Streaks</span>
-            </div>
-          </div>
-
-          <div className="wallet-connect">
-            <ConnectWalletButton />
-          </div>
-
-          <p className="hint">
-            Connect your wallet to start building better habits
-          </p>
-          
-          <p className="network-hint">
-            Supports BNB Smart Chain (BSC)
-          </p>
+          )}
         </div>
       </div>
 
-      <div className="login-bg">
-        {grassBlades.map((blade, index) => (
-          <div
-            key={index}
-            className="grass-blade"
-            style={{
-              left: blade.left,
-              animationDelay: blade.delay,
-              height: `${blade.height}px`,
-              animationDuration: `${blade.duration}s`,
-              opacity: blade.opacity,
-              width: `${blade.width}px`
-            }}
-          ></div>
-        ))}
-      </div>
+      {isMarketing && (
+        <div className="login-bg">
+          {grassBlades.map((blade, index) => (
+            <div
+              key={index}
+              className="grass-blade"
+              style={{
+                left: blade.left,
+                animationDelay: blade.delay,
+                height: `${blade.height}px`,
+                animationDuration: `${blade.duration}s`,
+                opacity: blade.opacity,
+                width: `${blade.width}px`
+              }}
+            ></div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

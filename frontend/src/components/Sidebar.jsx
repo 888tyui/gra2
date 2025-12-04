@@ -5,10 +5,10 @@ import './Sidebar.css';
 
 function Sidebar() {
   const navItems = [
-    { path: '/today', icon: Target, label: "Today's Goals" },
-    { path: '/calendar', icon: Calendar, label: 'Calendar' },
-    { path: '/profile', icon: User, label: 'Profile' },
-    { path: '/settings', icon: Settings, label: 'Settings' }
+    { path: '/app/today', icon: Target, label: "Today's Goals" },
+    { path: '/app/calendar', icon: Calendar, label: 'Calendar' },
+    { path: '/app/profile', icon: User, label: 'Profile' },
+    { path: '/app/settings', icon: Settings, label: 'Settings' }
   ];
 
   return (
