@@ -11,6 +11,7 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
   const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const preferredConnectors = useMemo(() => {
     const preferredOrder = ['metaMask', 'coinbaseWallet', 'injected'];
@@ -23,6 +24,11 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
   const hasReadyConnector = preferredConnectors.some(
     (connector) => connector.ready
   );
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setError(null);
+  };
 
   const handleConnect = async (connectorId) => {
     setError(null);
@@ -37,6 +43,7 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
 
     try {
       await connectAsync({ connector: target, chainId: bsc.id });
+      closeModal();
     } catch (err) {
       console.error('Wallet connect error:', err);
       setError(err?.message || 'Failed to connect wallet');
@@ -56,48 +63,74 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
     );
   }
 
-  if (compact) {
-    return (
+  return (
+    <>
       <button
-        className={`wallet-btn ${variant}`}
-        onClick={() => handleConnect('metaMask')}
+        className={`wallet-btn trigger ${variant} ${
+          compact ? 'compact' : ''
+        }`}
+        onClick={() => setIsModalOpen(true)}
         disabled={isPending}
       >
         {isPending ? 'Connecting...' : 'Connect Wallet'}
       </button>
-    );
-  }
 
-  return (
-    <div className={`wallet-list ${variant}`}>
-      {preferredConnectors.map((connector) => (
-        <button
-          key={connector.id}
-          className="wallet-btn"
-          onClick={() => handleConnect(connector.id)}
-          disabled={isPending || !connector.ready}
+      {isModalOpen && (
+        <div
+          className="wallet-modal-overlay"
+          onClick={closeModal}
+          role="presentation"
         >
-          {connector.name}
-          {!connector.ready && ' (Not installed)'}
-        </button>
-      ))}
-      {!hasReadyConnector && (
-        <div className="wallet-helper">
-          <p className="wallet-error">
-            MetaMask 또는 다른 EVM 지갑이 감지되지 않습니다.
-          </p>
-          <a
-            href="https://metamask.io/download/"
-            target="_blank"
-            rel="noreferrer"
-            className="wallet-link"
+          <div
+            className="wallet-modal"
+            onClick={(event) => event.stopPropagation()}
           >
-            MetaMask 설치하기
-          </a>
+            <div className="wallet-modal-header">
+              <h3>Select a wallet</h3>
+              <button
+                className="wallet-modal-close"
+                onClick={closeModal}
+                aria-label="Close wallet selector"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="wallet-list modal">
+              {preferredConnectors.map((connector) => (
+                <button
+                  key={connector.id}
+                  className="wallet-btn"
+                  onClick={() => handleConnect(connector.id)}
+                  disabled={isPending || !connector.ready}
+                >
+                  {connector.name}
+                  {!connector.ready && ' (Not installed)'}
+                </button>
+              ))}
+            </div>
+
+            {!hasReadyConnector && (
+              <div className="wallet-helper">
+                <p className="wallet-error">
+                  MetaMask or another EVM wallet is not detected.
+                </p>
+                <a
+                  href="https://metamask.io/download/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="wallet-link"
+                >
+                  Install MetaMask
+                </a>
+              </div>
+            )}
+
+            {error && <p className="wallet-error">{error}</p>}
+          </div>
         </div>
       )}
-      {error && <p className="wallet-error">{error}</p>}
-    </div>
+    </>
   );
 }
 

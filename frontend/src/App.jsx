@@ -14,8 +14,11 @@ const chains = [bsc, bscTestnet];
 
 const config = createConfig({
   chains,
-  connectors: [
-    metaMask({ dappMetadata: { name: 'Grass - Touch Grass' } }),
+  connectors: () => [
+    metaMask({
+      dappMetadata: { name: 'Grass - Touch Grass' },
+      shimDisconnect: true,
+    }),
     coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
     injected({ shimDisconnect: true }),
   ],
