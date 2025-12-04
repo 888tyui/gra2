@@ -171,18 +171,10 @@
 }
 
 .wallet-option:hover:not(:disabled) {
-  background: var(--grass-600);
-  border-color: var(--grass-600);
-  color: white;
-  transform: none;
-}
-
-.wallet-option:hover:not(:disabled) .wallet-label {
-  color: white;
-}
-
-.wallet-option:hover:not(:disabled) .wallet-icon {
-  background: rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: var(--grass-800);
+  border-color: var(--grass-300);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.18);
 }
 
 .wallet-option:disabled {
