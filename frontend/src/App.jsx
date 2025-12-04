@@ -34,6 +34,7 @@ const connectors = connectorsForWallets(
         metaMaskWallet({ projectId, chains }),
         trustWallet({ projectId, chains }),
         coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
+        walletConnectWallet({ projectId, chains }),
         braveWallet({ chains }),
         rainbowWallet({ projectId, chains }),
       ],
