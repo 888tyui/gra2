@@ -237,7 +237,8 @@ input:focus, textarea:focus {
 .wallet-adapter-modal-list .wallet-adapter-modal-list-item {
   border-radius: var(--radius-md) !important;
   border: 1.5px solid var(--grass-300) !important;
-  background: var(--bg-card) !important;
+  background-color: var(--bg-card) !important;
+  background-image: none !important;
   color: var(--text-primary) !important;
   padding: 0.875rem 1.25rem !important;
   display: flex !important;
@@ -262,5 +263,9 @@ input:focus, textarea:focus {
   width: 32px !important;
   height: 32px !important;
   border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 1rem !important;
 }
 
