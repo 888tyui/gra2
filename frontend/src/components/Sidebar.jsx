@@ -18,7 +18,7 @@ function Sidebar() {
         <div className="sidebar-logo">
           <img src={logoSmall} alt="Grass logo" />
         </div>
-        <h1 className="sidebar-title">Grass</h1>
+        <h1 className="sidebar-title">grass.fun</h1>
       </div>
 
       <nav className="sidebar-nav">

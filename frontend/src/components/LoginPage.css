@@ -11,6 +11,14 @@
   padding: 2rem;
 }
 
+.login-page-marketing {
+  background: #f7faf7;
+  background-image: url('../bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .login-container {
   max-width: 560px;
   width: 100%;

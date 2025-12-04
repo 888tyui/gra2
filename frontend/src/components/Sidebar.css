@@ -37,10 +37,9 @@
 .sidebar-title {
   font-size: 1.75rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .sidebar-nav {

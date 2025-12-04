@@ -15,7 +15,7 @@ function Header() {
           <div className="logo-small">
             <img src={logoSmall} alt="Grass logo" />
           </div>
-          <h1 className="logo-text-small text-gradient">Grass</h1>
+          <h1 className="logo-text-small text-gradient">grass.fun</h1>
         </div>
 
         <div className="header-right">

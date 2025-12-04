@@ -43,6 +43,8 @@
 .logo-text-small {
   font-size: 1.75rem;
   font-weight: 700;
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  letter-spacing: -0.01em;
 }
 
 .header-right {

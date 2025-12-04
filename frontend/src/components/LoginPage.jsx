@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ConnectWalletButton from './ConnectWalletButton';
 import logoMain from '../logot.png';
@@ -23,14 +23,33 @@ const grassBlades = [
 
 function LoginPage({ variant = 'marketing' }) {
   const isMarketing = variant === 'marketing';
+  const previousThemeRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMarketing) {
+      return;
+    }
+
+    const root = document.documentElement;
+    previousThemeRef.current = root.getAttribute('data-theme');
+    root.setAttribute('data-theme', 'light');
+
+    return () => {
+      if (previousThemeRef.current) {
+        root.setAttribute('data-theme', previousThemeRef.current);
+      } else {
+        root.removeAttribute('data-theme');
+      }
+    };
+  }, [isMarketing]);
 
   return (
-    <div className={`login-page ${isMarketing ? '' : 'login-page-connect'}`}>
+    <div className={`login-page ${isMarketing ? 'login-page-marketing' : 'login-page-connect'}`}>
       <div className="login-container">
         <div className="login-header">
           <div className="login-hero">
             <img src={logoMain} alt="Grass logotype" className="hero-logo-mark" />
-            <h1 className="hero-wordmark">Grass.</h1>
+            <h1 className="hero-wordmark">grass.fun</h1>
             <p className="hero-subline">Gamified Self improvement for degens.</p>
             {isMarketing && (
               <div className="hero-buttons">
