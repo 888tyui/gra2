@@ -63,12 +63,12 @@ function LoginPage({ variant = 'marketing' }) {
                   Twitter
                 </a>
                 <a
-                  href="https://twitter.com/search?q=%24GRASS"
+                  href="https://twitter.com/search?q=%24GRS"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hero-btn tertiary"
                 >
-                  $GRASS
+                  $GRS
                 </a>
               </div>
             )}
