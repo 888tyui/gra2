@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import bs58 from 'bs58';
+import { useAccount, useSignMessage, useDisconnect } from 'wagmi';
 import { getNonce, verifyWallet, setAuthHeader } from '../utils/api';
 
 const AuthContext = createContext();
@@ -14,13 +13,15 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const { publicKey, signMessage, connected, disconnect } = useWallet();
+  const { address, isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage();
+  const { disconnect } = useDisconnect();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const login = async () => {
-    if (!publicKey || !signMessage) {
+    if (!address || !signMessageAsync) {
       setError('Wallet not connected');
       return;
     }
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       console.log('🔵 [1/4] Starting login...');
-      const walletAddress = publicKey.toBase58();
+      const walletAddress = address;
       console.log('🔵 Wallet address:', walletAddress);
       
       // Get nonce
@@ -41,19 +42,9 @@ export const AuthProvider = ({ children }) => {
       
       // Sign message
       console.log('🔵 [3/4] Requesting signature from wallet...');
-      console.log('🔵 [3.1] Encoding message...');
-      const messageBytes = new TextEncoder().encode(nonce);
-      console.log('🔵 [3.2] Message bytes:', messageBytes);
-      console.log('🔵 [3.3] Checking signMessage function:', typeof signMessage);
-      
-      console.log('🔵 [3.4] Calling signMessage() - WALLET POPUP SHOULD APPEAR NOW...');
       const startSign = Date.now();
-      const signatureBytes = await signMessage(messageBytes);
-      console.log(`✅ [3.5] Signature received in ${Date.now() - startSign}ms`);
-      
-      console.log('🔵 [3.6] Encoding signature to base58...');
-      const signature = bs58.encode(signatureBytes);
-      console.log('✅ [3.7] Signature encoded:', signature.substring(0, 20) + '...');
+      const signature = await signMessageAsync({ message: nonce });
+      console.log(`✅ Signature received in ${Date.now() - startSign}ms`);
       
       // Verify with backend
       console.log('🔵 [4/4] Verifying with backend...');
@@ -87,16 +78,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (connected && publicKey && !user) {
+    if (isConnected && address && !user) {
       login();
     }
-  }, [connected, publicKey]);
+  }, [isConnected, address]);
 
   useEffect(() => {
-    if (!connected && user) {
+    if (!isConnected && user) {
       logout();
     }
-  }, [connected]);
+  }, [isConnected]);
 
   return (
     <AuthContext.Provider
@@ -107,11 +98,11 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         refreshUser,
-        isAuthenticated: !!user
+        isAuthenticated: !!user,
+        walletAddress: address
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-

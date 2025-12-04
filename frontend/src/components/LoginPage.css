@@ -105,6 +105,18 @@
 .hint {
   font-size: 0.875rem;
   color: var(--text-tertiary);
+  margin-bottom: 0.5rem;
+}
+
+.network-hint {
+  font-size: 0.8rem;
+  color: var(--grass-600);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: var(--grass-50);
+  border-radius: 6px;
+  border: 1px solid var(--grass-200);
+  display: inline-block;
 }
 
 /* Animated grass background */
@@ -147,4 +159,5 @@
     font-size: 2.5rem;
   }
 }
+
 

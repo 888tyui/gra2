@@ -1,14 +1,10 @@
-import nacl from 'tweetnacl';
-import bs58 from 'bs58';
+import { ethers } from 'ethers';
 import { prisma } from '../server.js';
 
-export const verifySignature = (message, signature, publicKey) => {
+export const verifySignature = (message, signature, address) => {
   try {
-    const messageBytes = new TextEncoder().encode(message);
-    const signatureBytes = bs58.decode(signature);
-    const publicKeyBytes = bs58.decode(publicKey);
-    
-    return nacl.sign.detached.verify(messageBytes, signatureBytes, publicKeyBytes);
+    const recoveredAddress = ethers.verifyMessage(message, signature);
+    return recoveredAddress.toLowerCase() === address.toLowerCase();
   } catch (error) {
     console.error('Signature verification error:', error);
     return false;
@@ -31,13 +27,13 @@ export const authenticate = async (req, res, next) => {
     
     // Find or create user
     let user = await prisma.user.findUnique({
-      where: { walletAddress }
+      where: { walletAddress: walletAddress.toLowerCase() }
     });
     
     if (!user) {
       user = await prisma.user.create({
         data: {
-          walletAddress,
+          walletAddress: walletAddress.toLowerCase(),
           username: `User_${walletAddress.slice(0, 8)}`
         }
       });
@@ -61,7 +57,7 @@ export const requireAuth = async (req, res, next) => {
     }
     
     const user = await prisma.user.findUnique({
-      where: { walletAddress }
+      where: { walletAddress: walletAddress.toLowerCase() }
     });
     
     if (!user) {

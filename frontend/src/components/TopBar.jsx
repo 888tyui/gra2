@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Award, Zap } from 'lucide-react';
 import './TopBar.css';
 
@@ -23,10 +23,15 @@ function TopBar() {
         </div>
       </div>
 
-      <WalletMultiButton />
+      <ConnectButton 
+        chainStatus="icon"
+        accountStatus="avatar"
+        showBalance={false}
+      />
     </div>
   );
 }
 
 export default TopBar;
+
 

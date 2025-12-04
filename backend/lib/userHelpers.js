@@ -36,3 +36,4 @@ export function updateStreak(user) {
   return user.streak;
 }
 
+

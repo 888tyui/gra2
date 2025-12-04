@@ -1,5 +1,5 @@
 import React from 'react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Leaf, Sparkles, TrendingUp, Award } from 'lucide-react';
 import './LoginPage.css';
 
@@ -36,11 +36,19 @@ function LoginPage() {
           </div>
 
           <div className="wallet-connect">
-            <WalletMultiButton />
+            <ConnectButton 
+              chainStatus="none"
+              accountStatus="avatar"
+              showBalance={false}
+            />
           </div>
 
           <p className="hint">
             Connect your wallet to start building better habits
+          </p>
+          
+          <p className="network-hint">
+            Supports BNB Smart Chain (BSC)
           </p>
         </div>
       </div>
@@ -58,4 +66,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

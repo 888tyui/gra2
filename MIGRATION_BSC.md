@@ -1,0 +1,242 @@
+# 🔄 Solana → BNB Chain Migration Guide
+
+## ✅ 완료된 변경사항
+
+### Frontend
+
+#### 제거된 패키지:
+```
+- @solana/wallet-adapter-*
+- @solana/web3.js
+- bs58
+- tweetnacl
+```
+
+#### 추가된 패키지:
+```
++ ethers (Ethereum 상호작용)
++ wagmi (React Hooks for Ethereum)
++ @rainbow-me/rainbowkit (지갑 UI)
++ viem (Ethereum 유틸리티)
++ @tanstack/react-query (상태 관리)
+```
+
+### Backend
+
+#### 제거된 패키지:
+```
+- bs58
+- tweetnacl
+```
+
+#### 추가된 패키지:
+```
++ ethers (서명 검증)
+```
+
+---
+
+## 🔑 지원되는 지갑
+
+### BNB Chain (BSC):
+- ✅ MetaMask (가장 인기)
+- ✅ Trust Wallet
+- ✅ Binance Wallet
+- ✅ WalletConnect (모바일)
+- ✅ Coinbase Wallet
+- ✅ Rainbow
+- ✅ 기타 EVM 호환 지갑
+
+---
+
+## ⚙️ 설정 필요
+
+### 1. WalletConnect Project ID 발급
+
+**필수! 지갑 연결을 위해 필요합니다.**
+
+1. https://cloud.walletconnect.com 접속
+2. 무료 계정 생성
+3. 새 프로젝트 생성
+4. **Project ID** 복사
+
+### 2. Frontend 코드 업데이트
+
+`frontend/src/App.jsx` 파일에서:
+
+```javascript
+projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',  // ← 여기에 붙여넣기
+```
+
+### 3. Railway Frontend Variables 추가
+
+```env
+VITE_WALLETCONNECT_PROJECT_ID=your_project_id_here
+```
+
+그리고 App.jsx를 환경 변수 사용하도록 수정:
+
+```javascript
+projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
+```
+
+---
+
+## 🌐 네트워크 설정
+
+### 현재 지원:
+- **BSC Mainnet** (메인 네트워크)
+- **BSC Testnet** (테스트용)
+
+### 사용자가 지갑에서:
+1. 네트워크를 BNB Smart Chain으로 변경
+2. 앱에서 자동으로 체인 전환 제안
+
+---
+
+## 🔒 서명 검증 방식 변경
+
+### Solana (이전):
+```javascript
+nacl.sign.detached.verify(message, signature, publicKey)
+```
+
+### Ethereum/BSC (현재):
+```javascript
+ethers.verifyMessage(message, signature)
+→ 복구된 주소와 비교
+```
+
+**더 간단하고 표준적입니다!**
+
+---
+
+## 💰 가스비
+
+### Solana:
+- 서명만: **무료** (트랜잭션 아님)
+- 트랜잭션: ~$0.00025
+
+### BSC:
+- 서명만: **무료** (트랜잭션 아님)
+- 트랜잭션: ~$0.10-0.30 (사용 안 함)
+
+**Grass 앱은 서명만 사용하므로 두 체인 모두 무료입니다!**
+
+---
+
+## 🎯 기능 동일성
+
+### 동일하게 작동:
+- ✅ 지갑 연결
+- ✅ 메시지 서명
+- ✅ 서명 검증
+- ✅ 사용자 인증
+- ✅ Task 관리
+- ✅ XP 시스템
+- ✅ 모든 기능
+
+**사용자 경험 차이 없음!**
+
+---
+
+## 📱 지갑 설치 가이드
+
+### Desktop:
+1. **MetaMask**: https://metamask.io/download/
+2. Chrome/Firefox/Brave 확장 프로그램 설치
+
+### Mobile:
+1. **Trust Wallet**: App Store/Play Store
+2. **MetaMask Mobile**: App Store/Play Store
+3. WalletConnect로 연결
+
+---
+
+## 🔧 BNB Chain 네트워크 추가
+
+MetaMask에 BSC 추가:
+
+```
+네트워크 이름: BNB Smart Chain
+RPC URL: https://bsc-dataseed.binance.org/
+체인 ID: 56
+통화 기호: BNB
+블록 탐색기: https://bscscan.com
+```
+
+**또는** 자동 추가:
+- https://chainlist.org 접속
+- "BSC" 검색
+- "Add to MetaMask" 클릭
+
+---
+
+## 🚀 로컬 테스트
+
+### 1. 패키지 재설치
+
+```bash
+cd frontend
+rm -rf node_modules package-lock.json
+npm install
+npm run dev
+```
+
+### 2. 지갑 연결
+1. MetaMask 설치
+2. BNB Smart Chain 네트워크 추가
+3. 앱에서 "Connect Wallet" 클릭
+4. MetaMask 선택
+
+---
+
+## ⚠️ 중요 사항
+
+### WalletConnect Project ID:
+**반드시 설정해야 합니다!**
+
+없으면:
+```
+Error: WalletConnect project ID is required
+```
+
+발급 받으세요: https://cloud.walletconnect.com
+
+---
+
+## 🎨 UI 변화
+
+### Wallet 버튼:
+- Before: Solana 스타일 버튼
+- After: RainbowKit 버튼 (더 세련됨)
+
+### 지갑 아이콘:
+- MetaMask 🦊
+- Trust Wallet 💙
+- Binance 🟡
+
+---
+
+## 📊 왜 BNB Chain?
+
+### 장점:
+- ✅ 더 많은 사용자 (MetaMask 광범위)
+- ✅ EVM 호환 (Ethereum 생태계)
+- ✅ 낮은 가스비
+- ✅ 빠른 트랜잭션
+- ✅ 대중적인 체인
+
+### Solana vs BSC:
+| 특징 | Solana | BSC |
+|------|--------|-----|
+| 사용자 | 적음 | 많음 |
+| 지갑 | Phantom | MetaMask |
+| 속도 | 매우 빠름 | 빠름 |
+| 가스비 | 매우 저렴 | 저렴 |
+| 대중성 | 개발자 중심 | 일반 사용자 |
+
+---
+
+**Grass 앱은 이제 BNB Chain 기반입니다!** 🌱✨
+

@@ -31,3 +31,4 @@ function XPNotification({ xpGained, newLevel, onClose }) {
 
 export default XPNotification;
 
+

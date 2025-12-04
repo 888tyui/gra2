@@ -1,57 +1,57 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
-import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
+import { WagmiProvider, createConfig, http } from 'wagmi';
+import { bsc, bscTestnet } from 'wagmi/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RainbowKitProvider, getDefaultConfig, darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import AppLayout from './components/AppLayout';
-import '@solana/wallet-adapter-react-ui/styles.css';
+import '@rainbow-me/rainbowkit/styles.css';
+
+const config = getDefaultConfig({
+  appName: 'Grass - Touch Grass',
+  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Get from https://cloud.walletconnect.com
+  chains: [bsc, bscTestnet],
+  transports: {
+    [bsc.id]: http(),
+    [bscTestnet.id]: http(),
+  },
+});
+
+const queryClient = new QueryClient();
+
+function AppContent() {
+  const { theme } = useTheme();
+  
+  return (
+    <RainbowKitProvider 
+      theme={theme === 'dark' ? darkTheme() : lightTheme()}
+      modalSize="compact"
+    >
+      <AuthProvider>
+        <TaskProvider>
+          <Router>
+            <Routes>
+              <Route path="/*" element={<AppLayout />} />
+            </Routes>
+          </Router>
+        </TaskProvider>
+      </AuthProvider>
+    </RainbowKitProvider>
+  );
+}
 
 function App() {
-  // Use faster RPC endpoint - QuickNode or custom RPC
-  const endpoint = useMemo(() => 
-    import.meta.env.VITE_SOLANA_RPC || 'https://api.mainnet-beta.solana.com',
-    []
-  );
-  
-  // Connection config for faster initialization
-  const config = useMemo(
-    () => ({
-      commitment: 'confirmed',
-      wsEndpoint: undefined, // Disable WebSocket for faster init
-    }),
-    []
-  );
-  
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter()
-    ],
-    []
-  );
-
   return (
-    <ConnectionProvider endpoint={endpoint} config={config}>
-      <WalletProvider wallets={wallets} autoConnect={false}>
-        <WalletModalProvider>
-          <ThemeProvider>
-            <AuthProvider>
-              <TaskProvider>
-                <Router>
-                  <Routes>
-                    <Route path="/*" element={<AppLayout />} />
-                  </Routes>
-                </Router>
-              </TaskProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AppContent />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
