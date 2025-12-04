@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Leaf, Award, Zap } from 'lucide-react';
+import { Award, Zap } from 'lucide-react';
+import logoSmall from '../logosmall.png';
 import './Header.css';
 
 function Header() {
@@ -12,7 +13,7 @@ function Header() {
       <div className="header-container">
         <div className="header-left">
           <div className="logo-small">
-            <Leaf size={32} strokeWidth={2.5} />
+            <img src={logoSmall} alt="Grass logo" />
           </div>
           <h1 className="logo-text-small text-gradient">Grass</h1>
         </div>

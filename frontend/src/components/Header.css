@@ -28,9 +28,16 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--grass-500), var(--grass-700));
+  padding: 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  color: white;
+}
+
+.logo-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .logo-text-small {

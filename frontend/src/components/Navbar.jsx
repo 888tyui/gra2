@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Leaf } from 'lucide-react';
+import logoSmall from '../logosmall.png';
 import './Navbar.css';
 
 function Navbar({ showCTA = true }) {
@@ -18,7 +18,7 @@ function Navbar({ showCTA = true }) {
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
           <div className="navbar-logo-icon">
-            <Leaf size={28} strokeWidth={2.5} />
+            <img src={logoSmall} alt="Grass logo" />
           </div>
           <span className="navbar-logo-text">Grass</span>
         </Link>
