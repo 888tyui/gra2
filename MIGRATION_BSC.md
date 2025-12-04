@@ -40,45 +40,17 @@
 
 ### BNB Chain (BSC):
 - ✅ MetaMask (가장 인기)
-- ✅ Trust Wallet
-- ✅ Binance Wallet
-- ✅ WalletConnect (모바일)
 - ✅ Coinbase Wallet
-- ✅ Rainbow
-- ✅ 기타 EVM 호환 지갑
+- ✅ Brave Wallet
+- ✅ 기타 EVM 호환 지갑 (WalletConnect 미사용)
 
 ---
 
 ## ⚙️ 설정 필요
 
-### 1. WalletConnect Project ID 발급
-
-**필수! 지갑 연결을 위해 필요합니다.**
-
-1. https://cloud.walletconnect.com 접속
-2. 무료 계정 생성
-3. 새 프로젝트 생성
-4. **Project ID** 복사
-
-### 2. Frontend 코드 업데이트
-
-`frontend/src/App.jsx` 파일에서:
-
-```javascript
-projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',  // ← 여기에 붙여넣기
-```
-
-### 3. Railway Frontend Variables 추가
-
-```env
-VITE_WALLETCONNECT_PROJECT_ID=your_project_id_here
-```
-
-그리고 App.jsx를 환경 변수 사용하도록 수정:
-
-```javascript
-projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-```
+### WalletConnect 사용 여부
+- 현재 버전은 WalletConnect를 사용하지 않습니다.
+- `VITE_WALLETCONNECT_PROJECT_ID` 환경 변수는 선택 사항입니다.
 
 ---
 
@@ -144,12 +116,11 @@ ethers.verifyMessage(message, signature)
 
 ### Desktop:
 1. **MetaMask**: https://metamask.io/download/
-2. Chrome/Firefox/Brave 확장 프로그램 설치
+2. **Coinbase Wallet** 확장 프로그램
+3. **Brave Wallet** (브라우저 내장)
 
 ### Mobile:
-1. **Trust Wallet**: App Store/Play Store
-2. **MetaMask Mobile**: App Store/Play Store
-3. WalletConnect로 연결
+> 현재 버전은 WalletConnect를 사용하지 않으므로 MetaMask Mobile 또는 Coinbase Wallet 브라우저를 사용하세요.
 
 ---
 
@@ -194,14 +165,7 @@ npm run dev
 ## ⚠️ 중요 사항
 
 ### WalletConnect Project ID:
-**반드시 설정해야 합니다!**
-
-없으면:
-```
-Error: WalletConnect project ID is required
-```
-
-발급 받으세요: https://cloud.walletconnect.com
+- 현재 구조에서는 입력하지 않아도 됩니다.
 
 ---
 
