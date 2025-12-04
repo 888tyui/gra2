@@ -10,7 +10,7 @@ function Navbar({ showCTA = true }) {
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/docs', label: 'Docs' },
-    { path: 'https://twitter.com', label: 'X', external: true }
+    { path: 'https://x.com/use_grass', label: 'X', external: true }
   ];
 
   return (

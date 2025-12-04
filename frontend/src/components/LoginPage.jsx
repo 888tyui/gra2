@@ -55,7 +55,7 @@ function LoginPage({ variant = 'marketing' }) {
               <div className="hero-buttons">
                 <Link to="/app" className="hero-btn primary">Go to app</Link>
                 <a
-                  href="https://twitter.com"
+                  href="https://x.com/use_grass"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hero-btn secondary"

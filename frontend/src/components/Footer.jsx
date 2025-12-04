@@ -37,7 +37,7 @@ function Footer() {
 
           <div className="footer-column">
             <h4>Community</h4>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/use_grass" target="_blank" rel="noopener noreferrer">
               Twitter/X
             </a>
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
@@ -47,7 +47,7 @@ function Footer() {
         </div>
 
         <div className="footer-social">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://x.com/use_grass" target="_blank" rel="noopener noreferrer">
             <Twitter size={20} />
           </a>
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
