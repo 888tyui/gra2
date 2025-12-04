@@ -14,7 +14,7 @@ const chains = [bsc, bscTestnet];
 
 const config = createConfig({
   chains,
-  connectors: () => [
+  connectors: [
     metaMask({
       dappMetadata: { name: 'Grass - Touch Grass' },
       shimDisconnect: true,
