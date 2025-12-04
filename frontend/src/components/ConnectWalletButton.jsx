@@ -1,10 +1,24 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { bsc } from 'wagmi/chains';
 import './ConnectWalletButton.css';
 
 const shortenAddress = (address) =>
   `${address.slice(0, 4)}...${address.slice(-4)}`;
+
+const resolveDebugFlag = () => {
+  if (typeof window !== 'undefined' && typeof window.__WALLET_DEBUG__ === 'boolean') {
+    return window.__WALLET_DEBUG__;
+  }
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    const envFlag = import.meta.env.VITE_WALLET_DEBUG;
+    if (envFlag === 'false') return false;
+    if (envFlag === 'true') return true;
+  }
+  return true;
+};
+
+const shouldDebug = resolveDebugFlag();
 
 function ConnectWalletButton({ variant = 'primary', compact = false }) {
   const { address, isConnected } = useAccount();
@@ -25,6 +39,28 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
     (connector) => connector.ready
   );
 
+  useEffect(() => {
+    if (!shouldDebug) {
+      return;
+    }
+
+    console.groupCollapsed('[Wallet Debug] Connector snapshot');
+    console.log(
+      'Step 3: connectors detected',
+      connectors.map((connector) => ({
+        id: connector.id,
+        name: connector.name,
+        ready: connector.ready,
+      }))
+    );
+    console.log(
+      'Step 4: preferredConnectors order',
+      preferredConnectors.map((c) => c.id)
+    );
+    console.log('Step 5: hasReadyConnector?', hasReadyConnector);
+    console.groupEnd();
+  }, [connectors, preferredConnectors, hasReadyConnector]);
+
   const closeModal = () => {
     setIsModalOpen(false);
     setError(null);
@@ -42,6 +78,9 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
     }
 
     try {
+      if (shouldDebug) {
+        console.log('[Wallet Debug] Attempting connect via', target.id);
+      }
       await connectAsync({ connector: target, chainId: bsc.id });
       closeModal();
     } catch (err) {
