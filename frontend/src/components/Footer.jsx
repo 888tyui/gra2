@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Leaf, Twitter, Github } from 'lucide-react';
+import { Twitter, Github } from 'lucide-react';
+import logoSmall from '../logosmall.png';
 import './Footer.css';
 
 function Footer() {
@@ -9,7 +10,9 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-brand">
           <div className="footer-logo">
-            <Leaf size={32} strokeWidth={2.5} />
+            <div className="footer-logo-mark">
+              <img src={logoSmall} alt="Grass logo" />
+            </div>
             <span>Grass</span>
           </div>
           <p className="footer-tagline">

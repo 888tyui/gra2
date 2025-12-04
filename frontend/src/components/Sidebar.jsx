@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Leaf, Target, Calendar, User, Settings } from 'lucide-react';
+import { Target, Calendar, User, Settings } from 'lucide-react';
+import logoSmall from '../logosmall.png';
 import './Sidebar.css';
 
 function Sidebar() {
@@ -15,7 +16,7 @@ function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <Leaf size={32} strokeWidth={2.5} />
+          <img src={logoSmall} alt="Grass logo" />
         </div>
         <h1 className="sidebar-title">Grass</h1>
       </div>
