@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { bsc } from 'wagmi/chains';
 import metamaskIcon from '../assets/wallets/metamask.svg';
-import coinbaseIcon from '../assets/wallets/coinbase.svg';
-import injectedIcon from '../assets/wallets/injected.svg';
-import binanceIcon from '../assets/wallets/binance.svg';
+import coinbaseIcon from '../assets/wallets/coinbasewallet.svg';
+import injectedIcon from '../assets/wallets/default.svg';
+import binanceIcon from '../assets/wallets/binance-logo.svg';
 import defaultIcon from '../assets/wallets/default.svg';
 import './ConnectWalletButton.css';
 

@@ -142,7 +142,7 @@
   justify-content: flex-end;
   gap: 0.75rem;
   border: 1.5px solid var(--grass-300);
-  background: transparent;
+  background: #ffffff;
   color: var(--grass-700);
   text-align: right;
   box-shadow: none;
