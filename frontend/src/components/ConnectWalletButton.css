@@ -39,6 +39,22 @@
   text-align: center;
 }
 
+.wallet-helper {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.wallet-link {
+  color: var(--grass-600);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wallet-link:hover {
+  text-decoration: underline;
+}
+
 .wallet-list.secondary .wallet-btn,
 .wallet-connected.secondary .wallet-btn {
   padding: 0.5rem 1rem;

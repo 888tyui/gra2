@@ -20,6 +20,9 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
       );
     });
   }, [connectors]);
+  const hasReadyConnector = preferredConnectors.some(
+    (connector) => connector.ready
+  );
 
   const handleConnect = async (connectorId) => {
     setError(null);
@@ -78,6 +81,21 @@ function ConnectWalletButton({ variant = 'primary', compact = false }) {
           {!connector.ready && ' (Not installed)'}
         </button>
       ))}
+      {!hasReadyConnector && (
+        <div className="wallet-helper">
+          <p className="wallet-error">
+            MetaMask 또는 다른 EVM 지갑이 감지되지 않습니다.
+          </p>
+          <a
+            href="https://metamask.io/download/"
+            target="_blank"
+            rel="noreferrer"
+            className="wallet-link"
+          >
+            MetaMask 설치하기
+          </a>
+        </div>
+      )}
       {error && <p className="wallet-error">{error}</p>}
     </div>
   );

@@ -49,15 +49,15 @@ function DocsPage() {
               <div className="docs-step">
                 <div className="step-number">1</div>
                 <div className="step-content">
-                  <h3>Install a Solana Wallet</h3>
+                  <h3>Install a BNB Chain Wallet</h3>
                   <p>
-                    Download and install a Solana wallet extension like{' '}
-                    <a href="https://phantom.app" target="_blank" rel="noopener noreferrer">
-                      Phantom
+                    Download and install an EVM wallet extension like{' '}
+                    <a href="https://metamask.io/download/" target="_blank" rel="noopener noreferrer">
+                      MetaMask
                     </a>{' '}
                     or{' '}
-                    <a href="https://solflare.com" target="_blank" rel="noopener noreferrer">
-                      Solflare
+                    <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener noreferrer">
+                      Coinbase Wallet
                     </a>
                     .
                   </p>
@@ -69,8 +69,8 @@ function DocsPage() {
                 <div className="step-content">
                   <h3>Connect Your Wallet</h3>
                   <p>
-                    Click "Launch App" and connect your Solana wallet. Sign the
-                    message to authenticate securely.
+                    Click "Launch App" and connect your BNB Chain wallet. Sign
+                    the message to authenticate securely.
                   </p>
                 </div>
               </div>
@@ -145,11 +145,11 @@ function DocsPage() {
 
             <h3>Web3 Wallet Authentication</h3>
             <p>
-              Grass uses Solana wallet authentication for a secure, passwordless
-              experience. Here's how it works:
+              Grass uses MetaMask (and other EVM wallets) for secure,
+              passwordless authentication on BNB Chain. Here's how it works:
             </p>
             <ol>
-              <li>You connect your Solana wallet (Phantom, Solflare, etc.)</li>
+              <li>You connect your EVM wallet (MetaMask, Coinbase Wallet, Brave)</li>
               <li>We generate a unique message for you to sign</li>
               <li>You sign the message with your wallet</li>
               <li>We verify the signature and authenticate you</li>
@@ -235,8 +235,8 @@ function DocsPage() {
             <div className="faq-item">
               <h3>Do I need cryptocurrency to use Grass?</h3>
               <p>
-                No! While we use Solana wallet authentication, you don't need any
-                cryptocurrency. The wallet is only used for secure login.
+                No! While we use EVM wallet authentication on BNB Chain, you don't
+                need any cryptocurrency. The wallet is only used for secure login.
               </p>
             </div>
 

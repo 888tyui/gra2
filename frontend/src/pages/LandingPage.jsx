@@ -117,8 +117,8 @@ function LandingPage() {
               </div>
               <h3>Web3 Authentication</h3>
               <p>
-                Connect securely with your Solana wallet. No passwords, no
-                hassle—just pure simplicity.
+                Connect securely with your BNB Chain wallet (MetaMask, Coinbase
+                Wallet, Brave). No passwords, no hassle—just pure simplicity.
               </p>
             </div>
 
@@ -149,8 +149,8 @@ function LandingPage() {
               <div className="step-number">1</div>
               <h3>Connect Your Wallet</h3>
               <p>
-                Sign in securely using your Solana wallet like Phantom or
-                Solflare. No email or password required.
+                Sign in securely using MetaMask, Coinbase Wallet, or any EVM
+                compatible wallet. No email or password required.
               </p>
             </div>
 
