@@ -26,19 +26,25 @@ import '@rainbow-me/rainbowkit/styles.css';
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'demo';
 const chains = [bsc, bscTestnet];
 
-const connectors = connectorsForWallets([
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Popular',
+      wallets: [
+        metaMaskWallet({ projectId, chains }),
+        trustWallet({ projectId, chains }),
+        coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
+        walletConnectWallet({ projectId, chains }),
+        braveWallet({ chains }),
+        rainbowWallet({ projectId, chains }),
+      ],
+    },
+  ],
   {
-    groupName: 'Popular',
-    wallets: [
-      metaMaskWallet({ projectId, chains }),
-      trustWallet({ projectId, chains }),
-      coinbaseWallet({ appName: 'Grass - Touch Grass', chains }),
-      walletConnectWallet({ projectId, chains }),
-      braveWallet({ chains }),
-      rainbowWallet({ projectId, chains })
-    ],
-  },
-]);
+    projectId,
+    appName: 'Grass - Touch Grass',
+  }
+);
 
 const config = createConfig({
   chains,
